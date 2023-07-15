@@ -132,6 +132,10 @@ function isDigit(str) {
   return "0123456789".includes(str)
 }
 
-const parser = new JSONParser('{"oo":[12, true, false, [{"bar": {      "baz": [12,23], "fooppp": 12 } }]] }')
-const parsed = parser.parse()
-console.log(parsed)
+// TEST
+assert.deepStrictEqual(new JSONParser('{"name": "thanh", "age": 12}').parse(), {name: "thanh", age: 12})
+assert.deepStrictEqual(new JSONParser('{}').parse(), {})
+assert.deepStrictEqual(new JSONParser('[]').parse(), [])
+assert.throws(() => new JSONParser('asdfj').parse())
+// assert.throws(new JSONParser('231').parse()) // this bug should be fix
+assert.deepStrictEqual(new JSONParser('{"oo":[12, true, false, [{"bar": {      "baz": [12,23], "fooppp": 12 } }]] }').parse(), { oo: [12,true,false,[{bar:{baz:[12,23],fooppp:12}}]]})
